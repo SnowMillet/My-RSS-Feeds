@@ -1,0 +1,14 @@
+[
+    {
+        "id": "cornell_prasad_media",
+        "title": "Prasad Cornell Media",
+        "description": "Prasad Dyson Cornell 媒体动态",
+        "url": "https://prasad.dyson.cornell.edu/media.html",
+        "selectors": {
+            "item": "div.media",
+            "title": "div.media-text",
+            "date": "strong",
+            "link": "div.media-text a"
+        }
+    }
+]

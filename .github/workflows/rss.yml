@@ -1,0 +1,35 @@
+name: Auto Generate RSS
+
+on:
+  schedule:
+    # 每天早上 8:00 (UTC 0:00) 跑一次，你可以根据需要修改
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许你在网页上手动点击运行测试
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v3
+
+      - name: 设置 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 安装依赖
+        run: |
+          pip install -r requirements.txt
+
+      - name: 运行爬虫脚本
+        run: |
+          python main.py
+
+      - name: 将生成的 RSS 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./rss_output
+          force_orphan: true # 保持仓库干净，只保留最新的 RSS 文件
